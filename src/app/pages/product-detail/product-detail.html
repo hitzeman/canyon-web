@@ -1,0 +1,25 @@
+<main class="mx-auto w-full max-w-2xl flex-1 px-6 py-20">
+  <a
+    routerLink="/products"
+    class="text-sm text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white"
+    >&larr; All products</a
+  >
+
+  <h1 class="mt-6 text-4xl font-semibold tracking-tight">{{ product().name }}</h1>
+  <p class="mt-2 text-lg font-medium">{{ product().price }}</p>
+  <p class="mt-6 text-lg leading-8 text-black/70 dark:text-white/70">
+    {{ product().description }}
+  </p>
+
+  <h2 class="mt-12 text-sm font-medium tracking-widest text-black/50 uppercase dark:text-white/50">
+    Details
+  </h2>
+  <ul class="mt-4 space-y-2 text-black/70 dark:text-white/70">
+    @for (feature of product().features; track feature) {
+      <li class="flex gap-3">
+        <span aria-hidden="true" class="text-black/30 dark:text-white/30">&bull;</span>
+        {{ feature }}
+      </li>
+    }
+  </ul>
+</main>

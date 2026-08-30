@@ -1,0 +1,16 @@
+<header class="border-b border-black/10 dark:border-white/10">
+  <div class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-5">
+    <a routerLink="/" class="text-lg font-semibold tracking-tight">{{ site.name }}</a>
+    <nav class="flex items-center gap-6 text-sm">
+      @for (item of nav; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="text-black dark:text-white"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white"
+          >{{ item.label }}</a
+        >
+      }
+    </nav>
+  </div>
+</header>

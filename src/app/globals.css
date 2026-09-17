@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+
+/* Dark mode follows the `dark` class on <html>, not the OS setting directly.
+   The inline script in the root layout sets it before first paint (the visitor's
+   saved choice, else the OS preference) and useTheme() toggles it. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Self-hosted so the site makes no third-party request at runtime. Anton is the
+   display face; DM Sans (variable weight and optical size) is the text face.
+   Latin and latin-ext subsets, from the @fontsource packages. */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/anton-latin.woff2) format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/anton-latin-ext.woff2) format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url(/fonts/dm-sans-latin.woff2) format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url(/fonts/dm-sans-latin-ext.woff2) format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-footer: var(--footer);
+  --color-line: var(--line);
+  --color-control: var(--control);
+  --color-control-line: var(--control-line);
+  --color-ink: var(--ink);
+  --color-nav: var(--nav);
+  --color-link: var(--link);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-quiet: var(--quiet);
+  --color-subtle: var(--subtle);
+  --color-accent: #d4920a;
+  --color-accent-hover: #b87d08;
+  --color-accent-text: var(--accent-text);
+  --color-accent-large: var(--accent-large);
+  --color-coal: #16130f;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: Anton, Impact, 'Arial Narrow', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Semantic colors from the Figma Make design. Components use these (bg-page,
+   text-ink, border-line, ...) so they rarely need a dark: variant. Where the
+   design's value fails WCAG AA contrast it has been adjusted; the comments
+   give the original. */
+:root {
+  --page: #ffffff;
+  --surface: #faf9f7;
+  --footer: #faf9f7;
+  --line: #e5e1db;
+  --control: #f5f3f0;
+  --control-line: #dddddd;
+  --ink: #16130f;
+  --nav: #16130f;
+  --link: #333333;
+  --body: #555555;
+  --muted: #666666;
+  --quiet: #666666; /* design: #888 in the footer */
+  --subtle: #707070; /* design: #999 and #aaa */
+  --accent-text: #9a6700; /* design: #d4920a, 2.6:1 on white */
+  --accent-large: #b87d08; /* 3.5:1, so large text only */
+  --focus: #9a6700;
+  color-scheme: light;
+}
+
+.dark {
+  --page: #16130f;
+  --surface: #1c1915;
+  --footer: #0f0d0a;
+  --line: #2a2520;
+  --control: #2a2520;
+  --control-line: #555555;
+  --ink: #ffffff;
+  --nav: #cccccc;
+  --link: #cccccc;
+  --body: #aaaaaa;
+  --muted: #999999;
+  --quiet: #888888;
+  --subtle: #808080; /* design: #666 and #555 */
+  --accent-text: #d4920a;
+  --accent-large: #d4920a;
+  --focus: #d4920a;
+  color-scheme: dark;
+}
+
+html {
+  /* The header is fixed; keep anchor targets and focused elements out from under it. */
+  scroll-padding-top: 4rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* The root layout renders header / page / footer straight into <body>, so <body>
+   owns the column that pins the footer to the bottom of short pages, and each
+   page's <main> carries flex-1. The padding clears the fixed header. */
+body {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  padding-top: 4rem;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Targets of the skip link and in-page links take focus so keyboard users land
+   there, but they aren't controls, so they get no focus ring. */
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+/* Recurring patterns from the design. */
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.25em] text-accent-text uppercase;
+}
+
+@utility btn-primary {
+  @apply inline-block bg-accent px-8 py-4 text-xs font-bold tracking-widest text-coal uppercase transition-colors hover:bg-accent-hover;
+}
+
+/* For dark backgrounds (the hero). */
+@utility btn-outline {
+  @apply inline-block border border-white/60 px-8 py-4 text-xs font-bold tracking-widest text-white uppercase transition-colors hover:border-white hover:bg-white/10;
+}
+
+@utility link-underline {
+  @apply inline-block border-b-2 border-accent pb-0.5 text-xs font-bold tracking-widest text-ink uppercase;
+}
+
+/* A link inside running text. */
+@utility inline-link {
+  @apply font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent-text;
+}

@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { RedirectCommand, ResolveFn, Router, Routes } from '@angular/router';
 
+import { PAGES } from './core/pages';
 import { Product, getProduct, getProducts } from './core/products';
 
 /**
@@ -23,7 +24,6 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
-    resolve: { products: () => getProducts() },
   },
   {
     path: 'about',
@@ -41,6 +41,13 @@ export const routes: Routes = [
       import('./pages/product-detail/product-detail').then((m) => m.ProductDetail),
     resolve: { product: productResolver },
   },
+  // One static route per footer page. Static paths are prerendered by the `**`
+  // server route, so unlike products/:slug these need no getPrerenderParams.
+  ...PAGES.map((page) => ({
+    path: page.slug,
+    loadComponent: () => import('./pages/content-page/content-page').then((m) => m.ContentPage),
+    resolve: { page: () => page },
+  })),
   {
     // A concrete path so the build emits a real page, which the postbuild step
     // copies to 404.html for static hosts to serve on unknown URLs.

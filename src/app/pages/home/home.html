@@ -1,40 +1,6 @@
-<main class="mx-auto w-full max-w-5xl flex-1 px-6 py-20">
-  <section class="max-w-2xl">
-    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{{ site.tagline }}</h1>
-    <p class="mt-6 text-lg leading-8 text-black/70 dark:text-white/70">{{ site.description }}</p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a
-        routerLink="/products"
-        class="rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
-        >Shop the range</a
-      >
-      <a
-        routerLink="/about"
-        class="rounded-full border border-black/15 px-6 py-3 text-sm font-medium transition-colors hover:border-black/40 dark:border-white/20 dark:hover:border-white/50"
-        >Our story</a
-      >
-    </div>
-  </section>
-
-  <section class="mt-20">
-    <h2 class="text-sm font-medium tracking-widest text-black/50 uppercase dark:text-white/50">
-      Featured
-    </h2>
-    <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      @for (product of products().slice(0, 3); track product.slug) {
-        <li>
-          <a
-            [routerLink]="['/products', product.slug]"
-            class="block h-full rounded-2xl border border-black/10 p-6 transition-colors hover:border-black/30 dark:border-white/10 dark:hover:border-white/30"
-          >
-            <h3 class="font-medium">{{ product.name }}</h3>
-            <p class="mt-2 text-sm leading-6 text-black/60 dark:text-white/60">
-              {{ product.summary }}
-            </p>
-            <p class="mt-4 text-sm font-medium">{{ product.price }}</p>
-          </a>
-        </li>
-      }
-    </ul>
-  </section>
+<main id="main" tabindex="-1" class="flex-1">
+  <app-home-hero />
+  <app-home-features />
+  <app-home-story />
+  <app-home-newsletter />
 </main>

@@ -1,0 +1,63 @@
+<section aria-labelledby="features-heading" class="border-b border-line bg-surface">
+  <h2 id="features-heading" class="sr-only">Why our shirts</h2>
+  <div class="mx-auto grid max-w-7xl grid-cols-1 px-6 py-12 md:grid-cols-3">
+    @for (feature of features; track feature.title) {
+      <div class="flex flex-col gap-3 py-8 md:px-10 md:py-0 md:first:pl-0 md:last:pr-0">
+        <span aria-hidden="true" class="text-accent">
+          @switch (feature.icon) {
+            @case ('heart') {
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                />
+              </svg>
+            }
+            @case ('bag') {
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+            }
+            @case ('truck') {
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+            }
+          }
+        </span>
+        <h3 class="text-sm font-bold tracking-widest text-ink uppercase">{{ feature.title }}</h3>
+        <p class="text-sm leading-relaxed text-muted">
+          {{ feature.description }}
+          @if (feature.tagline) {
+            <span class="text-accent-text">{{ feature.tagline }}</span>
+          }
+        </p>
+      </div>
+    }
+  </div>
+</section>

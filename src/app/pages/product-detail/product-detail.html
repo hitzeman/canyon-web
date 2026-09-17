@@ -1,25 +1,29 @@
-<main class="mx-auto w-full max-w-2xl flex-1 px-6 py-20">
-  <a
-    routerLink="/products"
-    class="text-sm text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white"
-    >&larr; All products</a
-  >
+<main id="main" tabindex="-1" class="flex-1 py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <a routerLink="/products" class="link-underline"
+      ><span aria-hidden="true">&larr;</span> All products</a
+    >
 
-  <h1 class="mt-6 text-4xl font-semibold tracking-tight">{{ product().name }}</h1>
-  <p class="mt-2 text-lg font-medium">{{ product().price }}</p>
-  <p class="mt-6 text-lg leading-8 text-black/70 dark:text-white/70">
-    {{ product().description }}
-  </p>
+    <div class="mt-12 grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-24">
+      <div>
+        <p class="eyebrow mb-5">Shop</p>
+        <h1 class="mb-6 font-display text-5xl leading-none text-ink uppercase md:text-6xl">
+          {{ product().name }}
+        </h1>
+        <p class="mb-8 font-display text-4xl leading-none text-accent-large">
+          {{ product().price }}
+        </p>
+        <p class="text-base leading-loose text-body">{{ product().description }}</p>
+      </div>
 
-  <h2 class="mt-12 text-sm font-medium tracking-widest text-black/50 uppercase dark:text-white/50">
-    Details
-  </h2>
-  <ul class="mt-4 space-y-2 text-black/70 dark:text-white/70">
-    @for (feature of product().features; track feature) {
-      <li class="flex gap-3">
-        <span aria-hidden="true" class="text-black/30 dark:text-white/30">&bull;</span>
-        {{ feature }}
-      </li>
-    }
-  </ul>
+      <div>
+        <h2 class="mb-5 text-xs font-bold tracking-widest text-quiet uppercase">Details</h2>
+        <ul class="grid gap-px bg-line">
+          @for (feature of product().features; track feature) {
+            <li class="bg-surface px-6 py-5 text-sm text-body">{{ feature }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
 </main>

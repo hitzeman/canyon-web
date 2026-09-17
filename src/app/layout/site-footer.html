@@ -1,12 +1,58 @@
-<footer class="mt-auto border-t border-black/10 dark:border-white/10">
-  <div
-    class="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-8 text-sm text-black/60 sm:flex-row sm:items-center sm:justify-between dark:text-white/60"
-  >
-    <p>&copy; {{ year }} {{ site.name }}</p>
-    <a
-      [href]="'mailto:' + site.email"
-      class="transition-colors hover:text-black dark:hover:text-white"
-      >{{ site.email }}</a
+<footer class="border-t border-line bg-footer">
+  <div class="mx-auto max-w-7xl px-6 pt-16 pb-10">
+    <div class="mb-16 grid grid-cols-2 gap-12 md:grid-cols-4">
+      <div class="col-span-2 md:col-span-1">
+        <p class="mb-4">
+          <span class="sr-only">{{ site.name }}</span>
+          <app-canyon-logo class="h-10 md:h-11" />
+        </p>
+        <p class="text-sm leading-relaxed text-subtle">
+          Small-batch shirts from Mission Viejo, CA. Built between the desert and the coast.
+        </p>
+      </div>
+
+      @for (group of footerNav; track group.heading) {
+        <div>
+          <h2 class="mb-5 text-[10px] font-bold tracking-widest text-quiet uppercase">
+            {{ group.heading }}
+          </h2>
+          <ul class="flex flex-col gap-3">
+            @for (link of group.links; track link.label) {
+              <li>
+                @if (link.href) {
+                  <a
+                    [href]="link.href"
+                    class="text-sm text-link transition-colors hover:text-accent-text"
+                    >{{ link.label }}</a
+                  >
+                } @else {
+                  <a
+                    [routerLink]="link.path"
+                    [fragment]="link.fragment"
+                    class="text-sm text-link transition-colors hover:text-accent-text"
+                    >{{ link.label }}</a
+                  >
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div
+      class="flex flex-col items-start justify-between gap-4 border-t border-line pt-8 text-xs text-subtle md:flex-row md:items-center"
     >
+      <p>&copy; {{ year }} {{ site.name }} All rights reserved.</p>
+      <ul class="flex gap-6">
+        @for (link of legalNav; track link.label) {
+          <li>
+            <a [routerLink]="link.path" class="transition-colors hover:text-accent-text">{{
+              link.label
+            }}</a>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
 </footer>

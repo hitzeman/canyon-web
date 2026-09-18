@@ -16,7 +16,7 @@ export class Features {
   protected readonly features: Feature[] = [
     {
       title: 'Small Batch',
-      description: 'Screen printed 40 at a time.',
+      description: 'Screen printed 25 at a time.',
       tagline: "When it's gone, it's gone.",
       icon: 'heart',
     },
@@ -26,7 +26,7 @@ export class Features {
       icon: 'bag',
     },
     {
-      title: 'Ships in 2 Days',
+      title: 'Ships in 5 Days',
       description: 'Packed by hand in California. On your doorstep fast.',
       icon: 'truck',
     },

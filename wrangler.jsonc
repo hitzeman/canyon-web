@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "canyon-web",
+  "compatibility_date": "2026-09-18",
+  // No "main": the site is fully prerendered, so there is no Worker script to
+  // run. Cloudflare serves the build output directly and static asset requests
+  // are not billed.
+  "assets": {
+    "directory": "./dist/canyon-web/browser",
+    // Serve the prerendered /404 route (copied to a root 404.html by
+    // scripts/postbuild.mts) with a real 404 status on unmatched URLs.
+    "not_found_handling": "404-page",
+    // Angular emits every route as a directory index (about/index.html), which
+    // Cloudflare would canonicalise to "/about/" by default. The sitemap emits
+    // "/about", so drop the slash instead and keep the two in agreement.
+    "html_handling": "drop-trailing-slash",
+  },
+}

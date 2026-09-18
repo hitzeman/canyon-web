@@ -1,14 +1,40 @@
 <section class="relative flex h-svh min-h-[600px] w-full items-end bg-coal">
-  <!-- object-cover crops the photo, so on screens taller than its 1.41 aspect ratio
-       it renders wider than the viewport. `sizes` says so, or phones get a blurry image. -->
-  <img
-    ngSrc="hero-beach"
-    fill
-    priority
-    sizes="(max-aspect-ratio: 1412/1000) 142vh, 100vw"
-    alt="Aerial view of beach with waves meeting sand"
-    class="object-cover"
-  />
+  <!-- object-cover crops the photo to fill the box, so the file the browser needs is
+       wider than the viewport, not equal to it. Each source states how much
+       wider; get it wrong and phones fetch a blurry file, or a needlessly huge one.
+       The breakpoint matches the portrait crop's own 3:4 aspect, which is what
+       collapses its sizes to a single value: below 3:4 the image is always wider
+       than the box, so cover scales it to the box height -> 0.75 * 100vh.
+       Files are pre-generated in public/images (a static host has no image CDN);
+       the portrait set is a centre crop at the source's full height. -->
+  <picture>
+    <source
+      media="(max-aspect-ratio: 3/4)"
+      srcset="
+        /images/hero-beach-portrait-731.webp   731w,
+        /images/hero-beach-portrait-1096.webp 1096w,
+        /images/hero-beach-portrait-1461.webp 1461w
+      "
+      sizes="75vh"
+    />
+    <source
+      srcset="
+        /images/hero-beach-640.webp   640w,
+        /images/hero-beach-1080.webp 1080w,
+        /images/hero-beach-1600.webp 1600w,
+        /images/hero-beach-2048.webp 2048w,
+        /images/hero-beach-2750.webp 2750w
+      "
+      sizes="(max-aspect-ratio: 1412/1000) 142vh, 100vw"
+    />
+    <img
+      src="/images/hero-beach-1600.webp"
+      alt="Aerial view of beach with waves meeting sand"
+      fetchpriority="high"
+      decoding="sync"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+  </picture>
   <div
     aria-hidden="true"
     class="absolute inset-0 bg-linear-to-t/srgb from-coal/85 via-coal/30 via-55% to-coal/10"

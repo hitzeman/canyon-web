@@ -6,7 +6,7 @@ export const site = {
   shortName: 'Canyon Supply',
   tagline: 'Built between worlds.',
   description:
-    'Desert dust and salt water. We make shirts for the drive between the two — printed in small batches out of Mission Viejo, California.',
+    'Desert dust and salt water. We make shirts for the drive between the two — printed in small batches in California.',
   email: 'hello@canyonsupply.co',
   // Used for absolute URLs in the generated sitemap. Override at build time
   // with the SITE_URL environment variable.

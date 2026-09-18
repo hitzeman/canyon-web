@@ -1,3 +1,12 @@
+export interface ProductImage {
+  /**
+   * Base name of the pre-generated files in public/images/products — the image
+   * loader appends a width. See src/app/core/product-images.ts.
+   */
+  src: string;
+  alt: string;
+}
+
 export interface Product {
   slug: string;
   name: string;
@@ -5,11 +14,12 @@ export interface Product {
   summary: string;
   description: string;
   features: string[];
+  images: ProductImage[];
 }
 
 /**
- * Placeholder catalog. Deliberately a plain module with no Angular decorators:
- * the build-time sitemap script imports it directly, and `getPrerenderParams`
+ * The catalog. Deliberately a plain module with no Angular decorators: the
+ * build-time sitemap script imports it directly, and `getPrerenderParams`
  * reads it to discover which product pages to prerender.
  *
  * Swapping it for a CMS or database later means making these functions do real
@@ -17,59 +27,41 @@ export interface Product {
  */
 const PRODUCTS: Product[] = [
   {
-    slug: 'rimrock-daypack',
-    name: 'Rimrock Daypack',
-    price: '$148',
-    summary: 'A 22L everyday pack that survives the trailhead and the commute.',
+    slug: 'desert-skull-tee',
+    name: 'Desert Skull Tee',
+    price: '$32',
+    summary:
+      'Black heavyweight tee — small chest logo on the front, full desert skull print on the back.',
     description:
-      'Cut from recycled 420D ripstop with a roll-top closure and a padded sleeve that fits a 15" laptop. Light enough to forget you\'re wearing it, tough enough to drag through a slot canyon.',
+      'Built for long roads, desert sunsets, and everyday wear. The Desert Skull Tee features our signature Canyon chest logo on the front with a full back graphic inspired by western grit, surf culture, and the open desert.',
     features: [
-      '22L capacity, 780g',
-      'Recycled 420D ripstop with DWR finish',
-      'Padded 15" laptop sleeve',
-      'Lifetime repair guarantee',
+      'Premium black tee',
+      'Soft, comfortable fit',
+      'Small front Canyon logo',
+      'Large back Desert Skull graphic',
+      'Screen printed in Texas',
     ],
-  },
-  {
-    slug: 'mesa-insulated-bottle',
-    name: 'Mesa Insulated Bottle',
-    price: '$42',
-    summary: '32oz of double-walled steel that keeps coffee hot past noon.',
-    description:
-      'Vacuum-insulated 18/8 stainless steel with a powder-coated grip and a leakproof lid that opens one-handed. Holds heat for 12 hours, ice for 24.',
-    features: [
-      '32oz / 946ml',
-      '18/8 stainless steel, BPA-free',
-      '12h hot / 24h cold',
-      'Dishwasher safe',
-    ],
-  },
-  {
-    slug: 'switchback-fleece',
-    name: 'Switchback Fleece',
-    price: '$120',
-    summary: 'A grid fleece midlayer that breathes on the climb and holds on the ridge.',
-    description:
-      'Polartec grid backing moves moisture fast without turning into a sponge. Trim through the body so it layers under a shell, long enough in the sleeve to stay put.',
-    features: [
-      'Polartec Power Grid',
-      'Thumb loops and a zippered chest pocket',
-      'Trim layering fit',
-      'Made in Portugal',
-    ],
-  },
-  {
-    slug: 'hollow-creek-camp-mug',
-    name: 'Hollow Creek Camp Mug',
-    price: '$28',
-    summary: 'Enamel over steel, sized for a proper cup of coffee.',
-    description:
-      "12oz of speckled enamelware with a rolled rim that won't burn your lip. Stacks flat, takes a beating, and picks up scratches you'll be sentimental about.",
-    features: [
-      '12oz / 355ml',
-      'Enamel-coated carbon steel',
-      'Campfire and stovetop safe',
-      'Stackable',
+    images: [
+      {
+        src: 'desert-skull-back',
+        alt: 'Back of the black Desert Skull Tee, printed with a longhorn skull above the words Clothing Company.',
+      },
+      {
+        src: 'desert-skull-front',
+        alt: 'Front of the black Desert Skull Tee, with a small Canyon logo on the left chest.',
+      },
+      {
+        src: 'desert-skull-worn-1',
+        alt: 'The tee worn at the beach, seen from behind with the full back print visible.',
+      },
+      {
+        src: 'desert-skull-worn-2',
+        alt: 'Close view of the back print on the worn tee.',
+      },
+      {
+        src: 'desert-skull-worn-3',
+        alt: 'Close view of the gold Canyon chest logo on the worn tee.',
+      },
     ],
   },
 ];

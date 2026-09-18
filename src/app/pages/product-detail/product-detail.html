@@ -6,6 +6,55 @@
 
     <div class="mt-12 grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-24">
       <div>
+        <!-- One image at a time. Scroll snapping does the swiping natively, so it
+             works before hydration and keeps touch momentum; the dots just drive
+             the same scroll position. -->
+        <div
+          #track
+          (scroll)="onTrackScroll()"
+          tabindex="0"
+          role="group"
+          [attr.aria-label]="product().name + ' images'"
+          class="no-scrollbar flex snap-x snap-mandatory overflow-x-auto"
+        >
+          @for (image of product().images; track image.src; let first = $first) {
+            <img
+              [ngSrc]="image.src"
+              width="1200"
+              height="900"
+              [priority]="first"
+              [loading]="first ? undefined : 'eager'"
+              [alt]="image.alt"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              class="w-full shrink-0 snap-center bg-surface"
+            />
+          }
+        </div>
+
+        @if (product().images.length > 1) {
+          <div class="mt-5 flex justify-center gap-1">
+            @for (image of product().images; track image.src; let i = $index) {
+              <button
+                type="button"
+                (click)="showImage(i)"
+                [attr.aria-current]="i === activeImage() ? 'true' : null"
+                [attr.aria-label]="'Show image ' + (i + 1) + ' of ' + product().images.length"
+                class="flex size-6 items-center justify-center"
+              >
+                <span
+                  aria-hidden="true"
+                  class="block size-2 rounded-full transition-colors"
+                  [class.bg-ink]="i === activeImage()"
+                  [class.bg-control-line]="i !== activeImage()"
+                ></span>
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Short next to the gallery, so it follows on the way down. -->
+      <div class="md:sticky md:top-24 md:self-start">
         <p class="eyebrow mb-5">Shop</p>
         <h1 class="mb-6 font-display text-5xl leading-none text-ink uppercase md:text-6xl">
           {{ product().name }}
@@ -13,10 +62,8 @@
         <p class="mb-8 font-display text-4xl leading-none text-accent-large">
           {{ product().price }}
         </p>
-        <p class="text-base leading-loose text-body">{{ product().description }}</p>
-      </div>
+        <p class="mb-12 text-base leading-loose text-body">{{ product().description }}</p>
 
-      <div>
         <h2 class="mb-5 text-xs font-bold tracking-widest text-quiet uppercase">Details</h2>
         <ul class="grid gap-px bg-line">
           @for (feature of product().features; track feature) {

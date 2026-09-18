@@ -2,6 +2,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
+import { site } from '../core/site';
 import { SiteHeader } from './site-header';
 
 @Component({ template: '' })
@@ -25,6 +26,17 @@ describe('SiteHeader', () => {
       menu: el.querySelector<HTMLElement>('#mobile-menu')!,
     };
   }
+
+  it('names the home link for screen readers', async () => {
+    const { fixture } = await setup();
+    const el = fixture.nativeElement as HTMLElement;
+    const link = el.querySelector('a[href="/"]')!;
+
+    // The wordmark is an aria-hidden SVG, so the sr-only text is the only
+    // thing naming this link.
+    expect(link.querySelector('.sr-only')?.textContent?.trim()).toBe(site.name);
+    expect(link.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
+  });
 
   it('opens the mobile menu and closes it when a link is followed', async () => {
     const { fixture, button, menu } = await setup();
